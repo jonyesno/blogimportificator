@@ -21,7 +21,7 @@ class TestBlog < Test::Unit::TestCase
     b = Blog.new("foo", "http://example.com")
     assert_equal "http://example.com/foo", b.to_blog_url
     assert_equal "http://example.com/foo/feed", b.to_feed_url
-    assert_equal "http://example.com/foo/lemons/feed", b.to_feed_url('lemons')
+    assert_equal "http://example.com/foo/category/lemons/feed", b.to_feed_url('lemons')
   end
 
 end

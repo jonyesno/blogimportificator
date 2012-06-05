@@ -12,7 +12,7 @@ class Blog
 
   def to_feed_url(category = nil)
     if category && !category.empty?
-      url = "#{self.to_blog_url}/#{category}/feed"
+      url = "#{self.to_blog_url}/category/#{category}/feed"
     else
       url = "#{self.to_blog_url}/feed"
     end
