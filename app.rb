@@ -4,7 +4,6 @@ $:.push("#{File.dirname(__FILE__)}/lib")
 require 'rubygems'
 require 'cgi'
 require 'sinatra'
-require 'sinatra/streaming'
 require 'blog_collection'
 require 'unis_hanoi'
 
