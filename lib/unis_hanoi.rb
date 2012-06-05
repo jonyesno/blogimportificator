@@ -25,7 +25,7 @@ class UnisHanoi
     # 1 -> "01"
     year = sprintf("%02d", year)
 
-    return [owner, "#{year}#{blog}" ]
+    return [owner, "#{year}#{blog.downcase}" ]
   end
 
   def self.url

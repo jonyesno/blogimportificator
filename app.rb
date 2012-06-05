@@ -61,7 +61,7 @@ post '/' do
       bc = BlogCollection.new(form[:file], UnisHanoi.url) do |owner, name|
         owner, name = UnisHanoi.transform(owner, name, form[:year])
       end
-      xml = bc.to_opml(form[:folder], form[:category])
+      xml = bc.to_opml(form[:folder], form[:category].downcase)
       # next time around unlikely to be previewing, clear the checkbox
       form[:preview] = false
     rescue Exception => e
