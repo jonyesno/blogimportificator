@@ -1,13 +1,14 @@
 class Blog
-  attr_reader :name
+  attr_reader :blog, :owner
 
-  def initialize(name, base_url)
-    @name = Blog.validate_name(name)
+  def initialize(owner, blog, base_url)
+    @owner = Blog.validate_owner(owner)
+    @blog  = Blog.validate_blog(blog)
     @base_url = base_url
   end
 
   def to_blog_url
-    "#{@base_url}/#{self.name}"
+    "#{@base_url}/#{self.blog}"
   end
 
   def to_feed_url(category = nil)
@@ -18,10 +19,14 @@ class Blog
     end
   end
 
-  def self.validate_name(name)
-    raise RuntimeError, "invalid name #{name}" if name.nil? || name.empty?
-    raise RuntimeError, "invalid name #{name}" unless name.match(/^[\w\-_]+$/)
-    return name
+  def self.validate_blog(blog)
+    raise RuntimeError, "invalid blog #{blog}" if blog.nil? || blog.empty?
+    raise RuntimeError, "invalid blog #{blog}" unless blog.match(/^[\w\-_]+$/)
+    blog
+  end
+
+  def self.validate_owner(owner)
+    owner
   end
 end
 

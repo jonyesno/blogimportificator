@@ -3,12 +3,12 @@ require 'unis_hanoi'
 
 class TestUnisHanoi < Test::Unit::TestCase
   def test_simple
-    assert_equal "12foo", UnisHanoi.transform("foo", "12")
-    assert_equal "12foo", UnisHanoi.transform("foo", 12)
+    assert_equal "12foo", UnisHanoi.transform("Foo Bar", "foo", "12")
+    assert_equal "12foo", UnisHanoi.transform("Foo Bar", "foo", 12)
   end
 
   def test_email
-    assert_equal "12foo", UnisHanoi.transform("foo@example.com", "12")
+    assert_equal "12foo", UnisHanoi.transform("Foo Bar", "foo@example.com", "12")
   end
 
   def test_validation

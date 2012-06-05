@@ -12,7 +12,8 @@ end
 
 __END__
 # test blog list, with fuzz
-foo
+Foo Bar,bar@example.com
+,,
+,woo
 
-bar
- woo@example.com
+Woo Yay,

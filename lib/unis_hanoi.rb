@@ -1,13 +1,13 @@
 class UnisHanoi
-  def self.transform(name, year)
+  def self.transform(owner, blog, year)
 
-    if name.nil? || name.empty? || year.nil? 
-      raise ArgumentError, "invalid name #{name} or year #{year}"
+    if blog.nil? || blog.empty? || year.nil? 
+      raise ArgumentError, "invalid blog #{blog} or year #{year}"
     end
 
     # foo@example.com -> foo
-    if name.match(/^(\w+)@/)
-      name = $1
+    if blog.match(/^(\w+)@/)
+      blog = $1
     end
 
     begin
@@ -25,7 +25,7 @@ class UnisHanoi
     # 1 -> "01"
     year = sprintf("%02d", year)
 
-    return "#{year}#{name}"
+    return [owner, "#{year}#{blog}" ]
   end
 
   def self.url
