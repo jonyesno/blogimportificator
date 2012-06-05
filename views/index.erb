@@ -1,0 +1,52 @@
+<% if xml %>
+<pre>
+<%= CGI.escape_html(xml) %>
+</pre>
+<% end %>
+<div>
+  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+  <div class="control-group <%= form[:file] == :error ? ' error' : '' %>">
+    <label class="control-label" for="file">Names list file</label>
+    <div class="controls">
+      <input class="input-file" type="file" name="file">
+      <% if form[:file] == :error %>
+      <span class="help-inline">Please select a file</span> 
+      <% end %>
+      <span class="help-block">Format: one name per line</span>
+    </div>
+  </div>
+  <div class="control-group<%= form[:category] == :error ? ' error' : '' %>">
+    <label class="control-label" for="folder">WordPress category</label>
+    <div class="controls">
+      <input type="text" placeholder="" name="category" value="<%= form[:category] != :error ? form[:category] : '' %>">
+      <span class="help-inline">Leave blank for all categories</span> 
+    </div>
+  </div>
+  <div class="control-group<%= form[:folder] == :error ? ' error' : '' %>">
+    <label class="control-label" for="folder">Google Reader folder</label>
+    <div class="controls">
+      <input type="text" placeholder="" name="folder" value="<%= form[:folder] != :error ? form[:folder] : '' %>">
+      <% if form[:folder] == :error %>
+      <span class="help-inline">Please enter a folder name</span> 
+      <% end %>
+    </div>
+  </div>
+  <div class="control-group<%= form[:year] == :error ? ' error' : '' %>">
+    <label class="control-label" for="year">Graduation Year</label>
+    <div class="controls">
+      <input type="text" placeholder="" name="year" value="<%= form[:year] != :error ? form[:year] : '' %>">
+      <span class="help-inline">Format: 2012 or 12</span> 
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="preview">Preview</label>
+    <div class="controls">
+      <label class="checkbox">
+      <input type="checkbox" name="preview" value="true" <%= form[:preview] == true ? 'checked' : '' %>>
+      Display OPML instead of downloading
+    </label>
+    </div>
+  </div>
+  <button type="submit" class="btn">Submit</button>
+</form>
+</div>
