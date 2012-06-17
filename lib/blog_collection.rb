@@ -1,4 +1,5 @@
 require 'blog'
+require 'cleaner'
 require 'csv'
 require 'nokogiri'
 
@@ -9,26 +10,35 @@ class BlogCollection
     @blogs    = []
     @base_url = base_url
 
-    csv = CSV.new(io)
-    csv.each do |row|
-      next if row[0].nil?
-      next if row[1].nil?
-      next if row[0].match(/^\s*#/)
-
-      owner = row[0]
-      blog  = row[1].match(/^\s*(\w+)/)[1]
-
-      if block_given?
-        owner, blog = yield [owner, blog]
+    IO.foreach(io) do |line|
+      # if the line doesn't contain a single comma try to convert it
+      # to CSV using Cleaner
+      unless line.match(/,/)
+        msg, csv = Cleaner.clean(line)
+        next if csv.nil?
+        line = csv
       end
 
-      begin
-        @blogs.push(Blog.new(owner, blog, base_url))
-      rescue RuntimeError => e
-        STDERR.puts "couldn't generate Blog for #{owner} - #{blog} (#{e})"
-        next
-      end
-    end
+      CSV.parse(line) do |row|
+        next if row[0].nil?
+        next if row[1].nil?
+        next if row[0].match(/^\s*#/)
+
+        owner = row[0]
+        blog  = row[1].match(/^\s*(\w+)/)[1]
+
+        if block_given?
+          owner, blog = yield [owner, blog]
+        end
+
+        begin
+          @blogs.push(Blog.new(owner, blog, base_url))
+        rescue RuntimeError => e
+          STDERR.puts "couldn't generate Blog for #{owner} - #{blog} (#{e})"
+          next
+        end
+      end # CSV.parse
+    end # IO.foreach
     raise RuntimeError, "no blogs imported" if @blogs.empty?
   end
 

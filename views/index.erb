@@ -12,7 +12,8 @@
       <% if form[:file] == :error %>
       <span class="help-inline">Please select a file</span> 
       <% end %>
-      <span class="help-block">Format: Real Name,blogname (one per line)</span>
+      <span class="help-block">CSV format: Real Name,blogname (one per line)</span>
+      <span class="help-block">Files not in CSV format will be converted if possible</span>
     </div>
   </div>
   <div class="control-group<%= form[:category] == :error ? ' error' : '' %>">
