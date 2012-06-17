@@ -7,7 +7,7 @@ require 'sinatra'
 require 'blog_collection'
 require 'unis_hanoi'
 
-transformer = UnisHanoi
+config = UnisHanoi
 
 get '/' do
   form = {
@@ -60,8 +60,8 @@ post '/' do
 
   unless error
     begin
-      bc = BlogCollection.new(form[:file], UnisHanoi.url) do |owner, name|
-        owner, name = transformer.send(:transform, owner, name, form[:year])
+      bc = BlogCollection.new(form[:file], config.send(:url)) do |owner, name|
+        owner, name = config.send(:transform, owner, name, form[:year])
       end
       xml = bc.to_opml(form[:folder], form[:category].downcase)
       # next time around unlikely to be previewing, clear the checkbox
